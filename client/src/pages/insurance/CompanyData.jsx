@@ -57,7 +57,7 @@ const InsuranceData = () => {
         {insuranceCompanies.map((company, index) => (
           <ListItem
             key={index}
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{ display: "flex", justifyContent: "space-between", border:"1px dotted", borderRadius:"5px", m: "20px 0"}}
           >
             <Box>
               <Typography variant="h6">{company.name}</Typography>
