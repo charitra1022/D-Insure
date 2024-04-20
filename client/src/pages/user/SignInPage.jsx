@@ -28,7 +28,7 @@ const SignInPage = () => {
 
         setUserExists(customerData.exists);
         if( customerData.exists ){
-          navigate("/customerinfo");
+          navigate("/customerinfo", { state: customerData });
         }else{
           navigate("/signup");
         } 

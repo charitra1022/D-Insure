@@ -5,7 +5,8 @@ import { Typography, Paper, Box, Button } from "@mui/material";
 const CustomerInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const customerData = location.state;
+  console.log("customer Data",customerData);
   // Dummy form data
   const formData = {
     name: "John Doe",
@@ -31,21 +32,24 @@ const CustomerInfo = () => {
       <Typography variant="h5" gutterBottom>
         Customer Information
       </Typography>
-      <Box>
-        <Typography variant="body1">Name: {formData.name}</Typography>
+      <Box sx={{textAlign:'justify'}}>
+        <Typography variant="body1">Name: {customerData.customerName}</Typography>
         <Typography variant="body1">
-          Date of Birth: {formData.dateOfBirth}
+          Date of Birth: {customerData.customerDOB}
         </Typography>
         <Typography variant="body1">Age: {formData.age}</Typography>
         <Typography variant="body1">
-          Phone Number: {formData.phoneNumber}
+          Phone Number: {customerData.customerPhone}
         </Typography>
         <Typography variant="body1">
-          Emergency Phone Number: {formData.emergencyPhoneNumber}
+          Home Address: {customerData.customerHomeAddress}
         </Typography>
         <Typography variant="body1">
-          Home Address: {formData.homeAddress}
+          Customer Aadhar: {customerData.customerAadhar}
         </Typography>
+        <Typography variant="body1">
+          Customer Blood Group: {customerData.customerBloodGrp}
+        </Typography>        
         <Typography variant="body1">
           Aadhar File: {formData.aadharFile.join(", ")}
         </Typography>
