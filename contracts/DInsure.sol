@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.8;
+pragma solidity >=0.7.0 <0.9.0;
 
 contract DInsure {
     // struct for customer's any underlying disease -----------------------------
