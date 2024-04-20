@@ -5,7 +5,7 @@ import { create } from "ipfs-http-client";
 import Web3 from "web3";
 
 // Create an instance of the IPFS client
-// const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
+const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 
 // Connect to the Ethereum network (replace with your network details)
 // const web3 = new Web3("https://mainnet.infura.io/v3/YOUR_PROJECT_ID");
@@ -96,8 +96,20 @@ const UserPage = () => {
       justifyContent="center"
       minHeight="100vh"
     >
-      <Typography variant="h4" gutterBottom>
-        User Page
+      <Typography
+        variant="h4"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          fontSize: "3rem",
+          fontWeight: "bold",
+          // p: "0.5rem 1rem",
+          borderRadius: "2px",
+          color: "#673AB7",
+        }}
+        gutterBottom
+      >
+        Customer Registration
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
         <TextField
@@ -107,6 +119,8 @@ const UserPage = () => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          color="secondary"
+          required
         />
         <TextField
           name="dateOfBirth"
@@ -119,6 +133,8 @@ const UserPage = () => {
           InputLabelProps={{
             shrink: true,
           }}
+          color="secondary"
+          required
         />
         <TextField
           name="age"
@@ -128,6 +144,8 @@ const UserPage = () => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          color="secondary"
+          required
         />
         <TextField
           name="phoneNumber"
@@ -136,6 +154,8 @@ const UserPage = () => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          color="secondary"
+          required
         />
         <TextField
           name="emergencyPhoneNumber"
@@ -144,7 +164,10 @@ const UserPage = () => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          color="secondary"
+          required
         />
+
         <TextField
           name="homeAddress"
           label="Home Address"
@@ -152,6 +175,8 @@ const UserPage = () => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          color="secondary"
+          required
         />
         <Box mt={2}>
           <Typography variant="subtitle1">Aadhar File</Typography>
@@ -159,6 +184,7 @@ const UserPage = () => {
             type="file"
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "aadharFile")}
+            required
           />
         </Box>
         <Box mt={2}>
@@ -168,6 +194,7 @@ const UserPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "insuranceFiles")}
+            required
           />
         </Box>
         <Box mt={2}>
@@ -177,12 +204,13 @@ const UserPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "medicalFiles")}
+            required
           />
         </Box>
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          color="secondary"
           fullWidth
           sx={{ mt: 2 }}
         >
