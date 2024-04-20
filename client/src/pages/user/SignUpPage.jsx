@@ -3,25 +3,15 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { create } from "ipfs-http-client";
 import Web3 from "web3";
+import { contractAbi, contractAddress } from "../../constants/constant.js";
+import { ethers } from "ethers";
 
-// Create an instance of the IPFS client
-const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
-
-// Connect to the Ethereum network (replace with your network details)
-// const web3 = new Web3("https://mainnet.infura.io/v3/YOUR_PROJECT_ID");
-
-// // Your Solidity contract instance
-// const contract = new web3.eth.Contract(
-//   // Replace with your contract ABI
-//   [
-//     /* ... */
-//   ],
-//   // Replace with your contract address
-//   "0x..."
-// );
+// const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     dateOfBirth: "",
@@ -43,14 +33,14 @@ const SignUpPage = () => {
     const files = Array.from(e.target.files);
     const uploads = [];
 
-    for (const file of files) {
-      try {
-        const added = await ipfs.add(file);
-        uploads.push(added.path);
-      } catch (error) {
-        console.error("Error uploading file to IPFS:", error);
-      }
-    }
+    // for (const file of files) {
+    //   try {
+    //     const added = await ipfs.add(file);
+    //     uploads.push(added.path);
+    //   } catch (error) {
+    //     console.error("Error uploading file to IPFS:", error);
+    //   }
+    // }
 
     setFormData({ ...formData, [fileType]: uploads });
   };
@@ -59,37 +49,51 @@ const SignUpPage = () => {
     e.preventDefault();
 
     try {
-      if (
-        formData.aadharFile &&
-        formData.insuranceFiles &&
-        formData.medicalFiles
-      ) {
-        // Upload files to IPFS and get their IPFS hashes
-        const aadharFileHash = await ipfs.add(formData.aadharFile);
-        const insuranceFilesHashes = await Promise.all(
-          formData.insuranceFiles.map((file) => ipfs.add(file))
-        );
-        const medicalFilesHashes = await Promise.all(
-          formData.medicalFiles.map((file) => ipfs.add(file))
+      // if (
+      //   formData.aadharFile &&
+      //   formData.insuranceFiles &&
+      //   formData.medicalFiles
+      // ) {
+      //   // Upload files to IPFS and get their IPFS hashes
+      //   const aadharFileHash = await ipfs.add(formData.aadharFile);
+      //   const insuranceFilesHashes = await Promise.all(
+      //     formData.insuranceFiles.map((file) => ipfs.add(file))
+      //   );
+      //   const medicalFilesHashes = await Promise.all(
+      //     formData.medicalFiles.map((file) => ipfs.add(file))
+      //   );
+      // }
+
+      // Check if MetaMask is installed and connected
+      if (window.ethereum) {
+        await window.ethereum.enable();
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+
+        // Get the user's Ethereum address
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const customerAddress = accounts[0];
+
+        // Call the registerCustomer function on the smart contract
+        const tx = await contract.registerCustomer(
+          customerAddress,
+          formData.name,
+          formData.dateOfBirth,
+          formData.emergencyPhoneNumber,
+          formData.homeAddress,  
+          formData.bloodGroup,
+          formData.gender,
+          formData.aadharNumber
         );
 
-        // Call your Solidity contract function to store the user data
-        // await contract.methods
-        //   .storeUserData(
-        //     formData.name,
-        //     formData.dateOfBirth,
-        //     formData.age,
-        //     formData.phoneNumber,
-        //     formData.emergencyPhoneNumber,
-        //     formData.homeAddress,
-        //     aadharFileHash.path,
-        //     insuranceFilesHashes.map((hash) => hash.path),
-        //     medicalFilesHashes.map((hash) => hash.path)
-        //   )
-        //   .send({ from: "YOUR_ETHEREUM_ADDRESS" });
+        // Wait for the transaction to be mined
+        await tx.wait();
+  
+        navigate("/customerinfo", { state: formData });
+      } else {
+        console.error("MetaMask not installed or not connected.");
       }
-      console.log(formData);
-      navigate("/customerinfo", { state: formData });
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -110,7 +114,6 @@ const SignUpPage = () => {
           justifyContent: "center",
           fontSize: "3rem",
           fontWeight: "bold",
-          // p: "0.5rem 1rem",
           borderRadius: "2px",
           color: "#673AB7",
         }}
@@ -163,7 +166,7 @@ const SignUpPage = () => {
           color="secondary"
           required
         />
-        <TextField
+                <TextField
           name="bloodGroup"
           label="Blood Group"
           value={formData.bloodGroup}
@@ -199,6 +202,7 @@ const SignUpPage = () => {
             type="file"
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "aadharFile")}
+            // required
           />
         </Box>
         <Box mt={2}>
@@ -208,6 +212,7 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "insuranceFiles")}
+            // required
           />
         </Box>
         <Box mt={2}>
@@ -217,6 +222,7 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "medicalFiles")}
+            // required
           />
         </Box>
         <Button

@@ -18,11 +18,36 @@ import { contractAbi, contractAddress } from "../../constants/constant";
 // );
 
 const SignInPage = () => {
+  const [web3, setWeb3] = useState(null);
+  // const [contract, setContract] = useState(null);
+  const [userAddress, setUserAddress] = useState(""); // Address of the user to check
+  const [userExists, setUserExists] = useState(false);
+  const navigate = useNavigate();
   const [metaMaskstate, setMetaMaskState] = useState({
     provider: null,
     signer: null,
     contract: null,
   });
+
+  const checkUserExists = async () => {
+    if (!web3 || !metaMaskstate) return;
+
+    try {
+      // Get the current MetaMask account address
+      const accounts = await web3.eth.getAccounts();
+      const userAddress = accounts[0];
+
+      // Call the smart contract function to check if the user exists
+      const isUserExists = await contract.methods
+        .customers(userAddress)
+        .exists()
+        .call();
+
+      setUserExists(isUserExists);
+    } catch (error) {
+      console.error("Error checking if user exists:", error);
+    }
+  };
   const [account, setAccount] = useState("Not connected");
   useEffect(() => {
     const template = async () => {
@@ -55,32 +80,11 @@ const SignInPage = () => {
       }
     };
     template();
+    checkUserExists();
   }, []);
 
-  const [loginError, setLoginError] = useState("");
-  const navigate = useNavigate();
-  const nameRef = useRef(null);
-  const walletNumberRef = useRef(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const name = nameRef.current.value;
-    const walletNumber = walletNumberRef.current.value;
-
-    try {
-      // Call the Solidity contract function to verify the user credentials
-      // const isValidUser = await contract.methods.verifyUser(name, walletNumber).call();
-      // if (isValidUser) {
-      //   // User is valid, navigate to the desired page
-      //   navigate("/final");
-      // } else {
-      //   setLoginError("Invalid name or wallet number. Please try again.");
-      // }
-    } catch (error) {
-      console.error("Error verifying user:", error);
-      setLoginError("An error occurred. Please try again.");
-    }
-  };
+  const { contract } = metaMaskstate;
+  console.log("contarct", contract);
 
   return (
     <div>
@@ -88,6 +92,13 @@ const SignInPage = () => {
         <small>Connected Account - {account}</small>
       </p>
       Waiting for Meta-Mask Auth
+      <div>
+        {userExists ? (
+          <p>User exists in the smart contract.</p>
+        ) : (
+          <p>User does not exist in the smart contract.</p>
+        )}
+      </div>
     </div>
   );
 };
