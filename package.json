@@ -1,5 +1,10 @@
 {
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.13.0"
+  },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ipfs-http-client": "^60.0.1",
     "web3": "^4.8.0"
   }
