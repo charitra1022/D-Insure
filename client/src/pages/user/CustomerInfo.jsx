@@ -5,19 +5,8 @@ import { Typography, Paper, Box, Button } from "@mui/material";
 const CustomerInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Dummy form data
-  const formData = {
-    name: "John Doe",
-    dateOfBirth: "1990-05-15",
-    age: 33,
-    phoneNumber: "+1 234 567 890",
-    emergencyPhoneNumber: "+1 987 654 321",
-    homeAddress: "123 Main Street, Anytown USA",
-    aadharFile: ["aadhar_card.pdf"],
-    insuranceFiles: ["insurance_policy.pdf", "insurance_claim.pdf"],
-    medicalFiles: ["medical_report.pdf", "test_results.pdf"],
-  };
+  const customerData = location.state;
+  console.log("customer Data",customerData);
 
   const handleApplyInsurance = () => {
     navigate("/companydata");
@@ -31,22 +20,24 @@ const CustomerInfo = () => {
       <Typography variant="h5" gutterBottom>
         Customer Information
       </Typography>
-      <Box>
-        <Typography variant="body1">Name: {formData.name}</Typography>
+      <Box sx={{textAlign:'justify'}}>
+        <Typography variant="body1">Name: {customerData.customerName}</Typography>
         <Typography variant="body1">
-          Date of Birth: {formData.dateOfBirth}
-        </Typography>
-        <Typography variant="body1">Age: {formData.age}</Typography>
-        <Typography variant="body1">
-          Phone Number: {formData.phoneNumber}
+          Date of Birth: {customerData.customerDOB}
         </Typography>
         <Typography variant="body1">
-          Emergency Phone Number: {formData.emergencyPhoneNumber}
+          Phone Number: {customerData.customerPhone}
         </Typography>
         <Typography variant="body1">
-          Home Address: {formData.homeAddress}
+          Home Address: {customerData.customerHomeAddress}
         </Typography>
         <Typography variant="body1">
+          Customer Aadhar: {customerData.customerAadhar}
+        </Typography>
+        <Typography variant="body1">
+          Customer Blood Group: {customerData.customerBloodGrp}
+        </Typography>        
+        {/* <Typography variant="body1">
           Aadhar File: {formData.aadharFile.join(", ")}
         </Typography>
         <Typography variant="body1">
@@ -54,7 +45,7 @@ const CustomerInfo = () => {
         </Typography>
         <Typography variant="body1">
           Medical Files: {formData.medicalFiles.join(", ")}
-        </Typography>
+        </Typography> */}
       </Box>
       <Button
         variant="contained"
