@@ -105,7 +105,7 @@ const SignUpPage = () => {
         await tx.wait(); // Wait for the transaction to be mined
         setLoading(false); // End loading
 
-        navigate("/customerinfo", { state: formData });
+        navigate("/signin");
       } else {
         console.error("MetaMask not installed or not connected.");
       }
