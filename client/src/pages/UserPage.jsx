@@ -7,10 +7,10 @@ import Web3 from "web3";
 // Create an instance of the IPFS client
 // const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 
-// // Connect to the Ethereum network (replace with your network details)
+// Connect to the Ethereum network (replace with your network details)
 // const web3 = new Web3("https://mainnet.infura.io/v3/YOUR_PROJECT_ID");
 
-// Your Solidity contract instance
+// // Your Solidity contract instance
 // const contract = new web3.eth.Contract(
 //   // Replace with your contract ABI
 //   [
@@ -39,17 +39,17 @@ const UserPage = () => {
   };
 
   const handleFileUpload = async (e, fileType) => {
-    // const files = e.target.files;
-    // const uploads = [];
+    const files = Array.from(e.target.files);
+    const uploads = [];
 
-    // for (const file of files) {
-    //   try {
-    //     const added = await ipfs.add(file);
-    //     uploads.push(added.path);
-    //   } catch (error) {
-    //     console.error("Error uploading file to IPFS:", error);
-    //   }
-    // }
+    for (const file of files) {
+      try {
+        const added = await ipfs.add(file);
+        uploads.push(added.path);
+      } catch (error) {
+        console.error("Error uploading file to IPFS:", error);
+      }
+    }
 
     setFormData({ ...formData, [fileType]: uploads });
   };
@@ -57,35 +57,35 @@ const UserPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   // Upload files to IPFS and get their IPFS hashes
-    //   const aadharFileHash = await ipfs.add(formData.aadharFile);
-    //   const insuranceFilesHashes = await Promise.all(
-    //     formData.insuranceFiles.map((file) => ipfs.add(file))
-    //   );
-    //   const medicalFilesHashes = await Promise.all(
-    //     formData.medicalFiles.map((file) => ipfs.add(file))
-    //   );
+    try {
+      // Upload files to IPFS and get their IPFS hashes
+      const aadharFileHash = await ipfs.add(formData.aadharFile);
+      const insuranceFilesHashes = await Promise.all(
+        formData.insuranceFiles.map((file) => ipfs.add(file))
+      );
+      const medicalFilesHashes = await Promise.all(
+        formData.medicalFiles.map((file) => ipfs.add(file))
+      );
 
-    //   // Call your Solidity contract function to store the user data
-    //   await contract.methods
-    //     .storeUserData(
-    //       formData.name,
-    //       formData.dateOfBirth,
-    //       formData.age,
-    //       formData.phoneNumber,
-    //       formData.emergencyPhoneNumber,
-    //       formData.homeAddress,
-    //       aadharFileHash.path,
-    //       insuranceFilesHashes.map((hash) => hash.path),
-    //       medicalFilesHashes.map((hash) => hash.path)
-    //     )
-    //     .send({ from: "YOUR_ETHEREUM_ADDRESS" });
+      // Call your Solidity contract function to store the user data
+      await contract.methods
+        .storeUserData(
+          formData.name,
+          formData.dateOfBirth,
+          formData.age,
+          formData.phoneNumber,
+          formData.emergencyPhoneNumber,
+          formData.homeAddress,
+          aadharFileHash.path,
+          insuranceFilesHashes.map((hash) => hash.path),
+          medicalFilesHashes.map((hash) => hash.path)
+        )
+        .send({ from: "YOUR_ETHEREUM_ADDRESS" });
 
-    //   navigate("/final", { state: formData });
-    // } catch (error) {
-    //   console.error("Error submitting form:", error);
-    // }
+      navigate("/final", { state: formData });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -97,7 +97,7 @@ const UserPage = () => {
       minHeight="100vh"
     >
       <Typography variant="h4" gutterBottom>
-        Customer
+        User Page
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
         <TextField
