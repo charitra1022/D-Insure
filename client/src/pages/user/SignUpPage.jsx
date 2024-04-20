@@ -25,10 +25,11 @@ const SignUpPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     dateOfBirth: "",
-    age: "",
-    phoneNumber: "",
     emergencyPhoneNumber: "",
     homeAddress: "",
+    bloodGroup: "",
+    gender: '',
+    aadharNumber: "",
     aadharFile: null,
     insuranceFiles: [],
     medicalFiles: [],
@@ -58,30 +59,33 @@ const SignUpPage = () => {
     e.preventDefault();
 
     try {
-      // Upload files to IPFS and get their IPFS hashes
-      const aadharFileHash = await ipfs.add(formData.aadharFile);
-      const insuranceFilesHashes = await Promise.all(
-        formData.insuranceFiles.map((file) => ipfs.add(file))
-      );
-      const medicalFilesHashes = await Promise.all(
-        formData.medicalFiles.map((file) => ipfs.add(file))
-      );
+      if(formData.aadharFile && formData.insuranceFiles && formData.medicalFiles) {
 
-      // Call your Solidity contract function to store the user data
-      await contract.methods
-        .storeUserData(
-          formData.name,
-          formData.dateOfBirth,
-          formData.age,
-          formData.phoneNumber,
-          formData.emergencyPhoneNumber,
-          formData.homeAddress,
-          aadharFileHash.path,
-          insuranceFilesHashes.map((hash) => hash.path),
-          medicalFilesHashes.map((hash) => hash.path)
-        )
-        .send({ from: "YOUR_ETHEREUM_ADDRESS" });
+        // Upload files to IPFS and get their IPFS hashes
+        const aadharFileHash = await ipfs.add(formData.aadharFile);
+        const insuranceFilesHashes = await Promise.all(
+          formData.insuranceFiles.map((file) => ipfs.add(file))
+        );
+        const medicalFilesHashes = await Promise.all(
+          formData.medicalFiles.map((file) => ipfs.add(file))
+        );
 
+        // Call your Solidity contract function to store the user data
+        // await contract.methods
+        //   .storeUserData(
+        //     formData.name,
+        //     formData.dateOfBirth,
+        //     formData.age,
+        //     formData.phoneNumber,
+        //     formData.emergencyPhoneNumber,
+        //     formData.homeAddress,
+        //     aadharFileHash.path,
+        //     insuranceFilesHashes.map((hash) => hash.path),
+        //     medicalFilesHashes.map((hash) => hash.path)
+        //   )
+        //   .send({ from: "YOUR_ETHEREUM_ADDRESS" });
+      }
+      console.log(formData)
       navigate("/final", { state: formData });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -137,27 +141,6 @@ const SignUpPage = () => {
           required
         />
         <TextField
-          name="age"
-          label="Age"
-          type="number"
-          value={formData.age}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          color="secondary"
-          required
-        />
-        <TextField
-          name="phoneNumber"
-          label="Phone Number"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          color="secondary"
-          required
-        />
-        <TextField
           name="emergencyPhoneNumber"
           label="Emergency Phone Number"
           value={formData.emergencyPhoneNumber}
@@ -167,11 +150,40 @@ const SignUpPage = () => {
           color="secondary"
           required
         />
-
         <TextField
           name="homeAddress"
           label="Home Address"
           value={formData.homeAddress}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          color="secondary"
+          required
+        />
+        <TextField
+          name="bloodGroup"
+          label="Blood Group"
+          value={formData.bloodGroup}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          color="secondary"
+          required
+        />
+        <TextField
+          name="gender"
+          label="Gender"
+          value={formData.gender}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          color="secondary"
+          required
+        />
+        <TextField
+          name="aadharNumber"
+          label="Aadhaar"
+          value={formData.aadharNumber}
           onChange={handleChange}
           fullWidth
           margin="normal"
@@ -184,7 +196,6 @@ const SignUpPage = () => {
             type="file"
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "aadharFile")}
-            required
           />
         </Box>
         <Box mt={2}>
@@ -194,7 +205,6 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "insuranceFiles")}
-            required
           />
         </Box>
         <Box mt={2}>
@@ -204,7 +214,6 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "medicalFiles")}
-            required
           />
         </Box>
         <Button
