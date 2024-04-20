@@ -6,11 +6,28 @@ const CustomerInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const customerData = location.state;
-  console.log("customer Data",customerData);
 
-  const handleApplyInsurance = () => {
-    navigate("/companydata");
-  };
+  // Check if customerData exists and is not null
+  if (!customerData) {
+    return (
+      <Paper
+        elevation={3}
+        sx={{ p: 3, mt: 20, justifyContent: "center", alignContent: "center" }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Error: Customer Data Not Found
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() =>navigate("/signup")}
+          sx={{ mt: 2 }}
+        >
+          Go to signUp page
+        </Button>
+      </Paper>
+    );
+  }
 
   return (
     <Paper
@@ -20,7 +37,7 @@ const CustomerInfo = () => {
       <Typography variant="h5" gutterBottom>
         Customer Information
       </Typography>
-      <Box sx={{textAlign:'justify'}}>
+      <Box sx={{ textAlign: "justify" }}>
         <Typography variant="body1">Name: {customerData.customerName}</Typography>
         <Typography variant="body1">
           Date of Birth: {customerData.customerDOB}
@@ -36,21 +53,12 @@ const CustomerInfo = () => {
         </Typography>
         <Typography variant="body1">
           Customer Blood Group: {customerData.customerBloodGrp}
-        </Typography>        
-        {/* <Typography variant="body1">
-          Aadhar File: {formData.aadharFile.join(", ")}
         </Typography>
-        <Typography variant="body1">
-          Insurance Files: {formData.insuranceFiles.join(", ")}
-        </Typography>
-        <Typography variant="body1">
-          Medical Files: {formData.medicalFiles.join(", ")}
-        </Typography> */}
       </Box>
       <Button
         variant="contained"
         color="primary"
-        onClick={handleApplyInsurance}
+        onClick={() => navigate("/companydata")}
         sx={{ mt: 2 }}
       >
         Apply for Insurance
