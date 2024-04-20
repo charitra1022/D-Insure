@@ -20,7 +20,7 @@ const ipfs = create({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 //   "0x..."
 // );
 
-const UserPage = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -221,4 +221,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default SignUpPage;

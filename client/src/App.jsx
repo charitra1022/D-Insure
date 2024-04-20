@@ -1,9 +1,9 @@
 import "./App.css";
-import LoginPage from "./components/LoginPage";
+import DashBoard from "./components/DashBoard";
 function App() {
   return (
     <>
-      <LoginPage></LoginPage>
+      <DashBoard></DashBoard>
     </>
   );
 }
