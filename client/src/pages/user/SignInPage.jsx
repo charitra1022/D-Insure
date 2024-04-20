@@ -27,7 +27,11 @@ const SignInPage = () => {
         const customerData = await contract.getCustomer(userAddress);
 
         setUserExists(customerData.exists);
-        // setUserExists(isUserExists);
+        if( customerData.exists ){
+          navigate("/customerinfo");
+        }else{
+          navigate("/signup");
+        } 
       } catch (error) {
         console.error("Error checking if user exists:", error);
       }
