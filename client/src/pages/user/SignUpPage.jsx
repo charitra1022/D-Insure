@@ -28,7 +28,7 @@ const SignUpPage = () => {
     emergencyPhoneNumber: "",
     homeAddress: "",
     bloodGroup: "",
-    gender: '',
+    gender: "",
     aadharNumber: "",
     aadharFile: null,
     insuranceFiles: [],
@@ -59,8 +59,11 @@ const SignUpPage = () => {
     e.preventDefault();
 
     try {
-      if(formData.aadharFile && formData.insuranceFiles && formData.medicalFiles) {
-
+      if (
+        formData.aadharFile &&
+        formData.insuranceFiles &&
+        formData.medicalFiles
+      ) {
         // Upload files to IPFS and get their IPFS hashes
         const aadharFileHash = await ipfs.add(formData.aadharFile);
         const insuranceFilesHashes = await Promise.all(
@@ -85,8 +88,8 @@ const SignUpPage = () => {
         //   )
         //   .send({ from: "YOUR_ETHEREUM_ADDRESS" });
       }
-      console.log(formData)
-      navigate("/final", { state: formData });
+      console.log(formData);
+      navigate("/customerinfo", { state: formData });
     } catch (error) {
       console.error("Error submitting form:", error);
     }

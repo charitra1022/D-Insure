@@ -8,6 +8,8 @@ import FinalPage from "./pages/FinalPage.jsx";
 import EnrollPage from "./pages/EnrollPage.jsx";
 import SignUpPage from "./pages/user/SignUpPage.jsx";
 import SignInPage from "./pages/user/SignInPage.jsx";
+import CustomerInfo from "./pages/user/CustomerInfo.jsx";
+import CompanyData from "./pages/insurance/CompanyData.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
   {
     path: "/enroll",
     element: <EnrollPage />,
+  },
+  {
+    path: "/customerinfo",
+    element: <CustomerInfo />,
+  },
+  {
+    path: "/companydata",
+    element: <CompanyData />,
   },
 ]);
 
