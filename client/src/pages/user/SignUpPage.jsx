@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { create } from "ipfs-http-client";
 import Web3 from "web3";
@@ -10,6 +16,7 @@ import { ethers } from "ethers";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
   const [formData, setFormData] = useState({
@@ -69,10 +76,16 @@ const SignUpPage = () => {
         await window.ethereum.enable();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractAbi,
+          signer
+        );
 
         // Get the user's Ethereum address
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
         const customerAddress = accounts[0];
 
         // Call the registerCustomer function on the smart contract
@@ -81,15 +94,16 @@ const SignUpPage = () => {
           formData.name,
           formData.dateOfBirth,
           formData.emergencyPhoneNumber,
-          formData.homeAddress,  
+          formData.homeAddress,
           formData.bloodGroup,
           formData.gender,
           formData.aadharNumber
         );
 
-        // Wait for the transaction to be mined
-        await tx.wait();
-  
+        setLoading(true); // Start loading
+        await tx.wait(); // Wait for the transaction to be mined
+        setLoading(false); // End loading
+
         navigate("/customerinfo", { state: formData });
       } else {
         console.error("MetaMask not installed or not connected.");
@@ -107,6 +121,22 @@ const SignUpPage = () => {
       justifyContent="center"
       minHeight="100vh"
     >
+      {loading && (
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bgcolor="rgba(255, 255, 255, 0.8)"
+          zIndex={1}
+        >
+          <CircularProgress size={80} />
+        </Box>
+      )}
       <Typography
         variant="h4"
         sx={{
@@ -121,7 +151,12 @@ const SignUpPage = () => {
       >
         Customer Registration
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{ mt: 2 }}
+        disabled={loading}
+      >
         <TextField
           name="name"
           label="Name"
@@ -166,7 +201,7 @@ const SignUpPage = () => {
           color="secondary"
           required
         />
-                <TextField
+        <TextField
           name="bloodGroup"
           label="Blood Group"
           value={formData.bloodGroup}
@@ -231,8 +266,9 @@ const SignUpPage = () => {
           color="secondary"
           fullWidth
           sx={{ mt: 2 }}
+          disabled={loading}
         >
-          Submit
+          {loading ? <CircularProgress size={24} /> : "Submit"}
         </Button>
       </Box>
     </Box>
