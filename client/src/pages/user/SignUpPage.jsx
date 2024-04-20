@@ -111,6 +111,7 @@ const SignUpPage = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setLoading(false); // End loading
     }
   };
 
