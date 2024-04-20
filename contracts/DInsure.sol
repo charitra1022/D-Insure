@@ -160,6 +160,11 @@ contract DInsure {
         emit CustomerRegistered(_customerAddress, _customerName);
     }
 
+   // Function to check if a customer exists
+    function getCustomer(address _customerAddress) public view returns (Customer memory) {
+        return customers[_customerAddress];
+    }
+    
     // Register a new insurance company --------------------------------
     function registerInsuranceCompany(
         address _companyAddress,
