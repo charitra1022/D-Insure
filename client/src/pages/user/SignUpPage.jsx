@@ -73,6 +73,8 @@ const SignUpPage = () => {
 
       // Check if MetaMask is installed and connected
       if (window.ethereum) {
+        setLoading(true); // Start loading
+        
         await window.ethereum.enable();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
@@ -100,7 +102,6 @@ const SignUpPage = () => {
           formData.aadharNumber
         );
 
-        setLoading(true); // Start loading
         await tx.wait(); // Wait for the transaction to be mined
         setLoading(false); // End loading
 
@@ -237,6 +238,7 @@ const SignUpPage = () => {
             type="file"
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "aadharFile")}
+            disabled={loading}
             // required
           />
         </Box>
@@ -247,6 +249,7 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "insuranceFiles")}
+            disabled={loading}
             // required
           />
         </Box>
@@ -257,6 +260,7 @@ const SignUpPage = () => {
             multiple
             accept=".pdf"
             onChange={(e) => handleFileUpload(e, "medicalFiles")}
+            disabled={loading}
             // required
           />
         </Box>
