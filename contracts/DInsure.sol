@@ -164,7 +164,28 @@ contract DInsure {
     function getCustomer(address _customerAddress) public view returns (Customer memory) {
         return customers[_customerAddress];
     }
-    
+     // Function to get insurance company details by address
+    function getInsuranceCompany(address _companyAddress) public view returns (InsuranceCompany memory) {
+        return insuranceCompanies[_companyAddress];
+    }
+
+    // Function to get hospital details by address
+    function getHospital(address _hospitalAddress) public view returns (Hospital memory) {
+        return hospitals[_hospitalAddress];
+    }
+
+
+    // Function to get customer insurance details by address
+    function getCustomerInsurance(address _customerAddress) public view returns (Insurance memory) {
+        return customerToInsurance[_customerAddress];
+    }
+
+    // Function to get company insurance details by address
+    function getCompanyInsurance(address _companyAddress) public view returns (Insurance memory) {
+        return companyToInsurance[_companyAddress];
+    }
+
+
     // Register a new insurance company --------------------------------
     function registerInsuranceCompany(
         address _companyAddress,
