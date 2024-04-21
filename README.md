@@ -26,8 +26,8 @@
 Team Name: Chain Re-action
 
 - [Charitra Agarwal](https://github.com/charitra1022)<br>
-- [Abhishek Prajapati](https://github.com/charitra1022)<br>
-- [Bikash Sah](https://github.com/charitra1022)<br>
+- [Abhishek Prajapati](https://github.com/abhiperfect)<br>
+- [Bikash Sah](https://github.com/bikashsahh)<br>
 - [Pooja Sharma](https://github.com/Tech-pooja)
 
 ### How to run project
