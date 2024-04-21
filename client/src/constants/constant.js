@@ -1,4 +1,4 @@
-const contractAddress = "0x5024ffB3285163AB05Ac690ACE60a9daBa58A7Ea"; // Replace with your actual contract address
+const contractAddress = "0x6A2bf6Db555a0af1615eFc256d238cA1E0cD1322"; // Replace with your actual contract address
 const contractAbi = [
   {
     "anonymous": false,
@@ -410,6 +410,62 @@ const contractAbi = [
     "inputs": [
       {
         "internalType": "address",
+        "name": "_companyAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getCompanyInsurance",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "insuranceName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "insuranceId",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isClaimed",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "insuranceCompanyAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "coverableAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DInsure.Insurance",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_customerAddress",
         "type": "address"
       }
@@ -465,6 +521,134 @@ const contractAbi = [
           }
         ],
         "internalType": "struct DInsure.Customer",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_customerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getCustomerInsurance",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "insuranceName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "insuranceId",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isClaimed",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "insuranceCompanyAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "coverableAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DInsure.Insurance",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_hospitalAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getHospital",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "hospitalAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "hospitalName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "hospitalLicense",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DInsure.Hospital",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_companyAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getInsuranceCompany",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "companyAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "companyName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "companyPhone",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DInsure.InsuranceCompany",
         "name": "",
         "type": "tuple"
       }

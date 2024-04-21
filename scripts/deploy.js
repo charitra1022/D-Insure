@@ -7,7 +7,7 @@ async function main() {
   await DInsureContract.deployed(); //deploying smart contract
 
 
-  // 0x5024ffB3285163AB05Ac690ACE60a9daBa58A7Ea
+  // 0x6A2bf6Db555a0af1615eFc256d238cA1E0cD1322
   console.log("Deployed contract address:",`${DInsureContract.address}`);
 }
 
