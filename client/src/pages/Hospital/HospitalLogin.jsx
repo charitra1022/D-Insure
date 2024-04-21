@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { Typography, Paper, Box, Button } from "@mui/material";
 import { contractAbi, contractAddress } from "../../constants/constant";
 
-const SignInPage = () => {
+const HospitalLoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("Not connected");
   const [hospitalData, setHospitalData] = useState();
@@ -92,4 +92,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default HospitalLoginPage;
