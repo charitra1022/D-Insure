@@ -1,4 +1,4 @@
-const contractAddress = "0x6A2bf6Db555a0af1615eFc256d238cA1E0cD1322"; // Replace with your actual contract address
+const contractAddress = "0xEd26E8F886B80BC7979584EED78AeA0cD302B8f5"; // Replace with your actual contract address
 const contractAbi = [
   {
     "anonymous": false,
@@ -585,72 +585,26 @@ const contractAbi = [
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_hospitalAddress",
-        "type": "address"
-      }
-    ],
-    "name": "getHospital",
+    "inputs": [],
+    "name": "getHospitals",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "hospitalAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "hospitalName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "hospitalLicense",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct DInsure.Hospital",
+        "internalType": "address[]",
         "name": "",
-        "type": "tuple"
+        "type": "address[]"
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_companyAddress",
-        "type": "address"
-      }
-    ],
-    "name": "getInsuranceCompany",
+    "inputs": [],
+    "name": "getInsuranceCompanies",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "companyAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "companyName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "companyPhone",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct DInsure.InsuranceCompany",
+        "internalType": "address[]",
         "name": "",
-        "type": "tuple"
+        "type": "address[]"
       }
     ],
     "stateMutability": "view",
@@ -768,6 +722,25 @@ const contractAbi = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "hospitalsList",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "initialize",
     "outputs": [],
@@ -798,6 +771,25 @@ const contractAbi = [
         "internalType": "string",
         "name": "companyPhone",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "insuranceCompaniesList",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
