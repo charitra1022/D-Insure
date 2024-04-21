@@ -24,7 +24,7 @@ const DashBoard = () => {
     } else {
       switch (type) {
         case "insurance":
-          navigate("/insurance");
+          navigate("/company-login");
           break;
         case "hospital":
           navigate("/hospital-login");
