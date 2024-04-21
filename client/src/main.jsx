@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import InsurancePage from "./pages/InsurancePage.jsx";
-import HospitalPage from "./pages/HospitalPage.jsx";
+import HospitalLogin from "./pages/Hospital/HospitalLogin.jsx";
 import FinalPage from "./pages/FinalPage.jsx";
 import EnrollPage from "./pages/EnrollPage.jsx";
 import SignUpPage from "./pages/user/SignUpPage.jsx";
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
     element: <InsurancePage />,
   },
   {
-    path: "/hospital",
-    element: <HospitalPage />,
+    path: "/hospital-login",
+    element: <HospitalLogin />,
   },
   {
     path: "/final",

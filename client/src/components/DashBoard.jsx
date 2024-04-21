@@ -27,7 +27,7 @@ const DashBoard = () => {
           navigate("/insurance");
           break;
         case "hospital":
-          navigate("/hospital");
+          navigate("/hospital-login");
           break;
         default:
           break;
