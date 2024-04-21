@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Paper, Box, Button, MenuItem, Select } from "@mui/material";
 
-const InsurancePage = () => {
+const CompanyData = () => {
   // Sample data for insurance companies and their insurances
   const insuranceCompanies = [
     {
@@ -56,6 +56,7 @@ const InsurancePage = () => {
             ))}
           </Select>
           <Button
+            sx={{mb: 2}}
             variant="contained"
             color="primary"
             disabled={!selectedInsurances[company.name]}
@@ -69,4 +70,4 @@ const InsurancePage = () => {
   );
 };
 
-export default InsurancePage;
+export default CompanyData;
