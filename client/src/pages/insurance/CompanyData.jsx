@@ -1,86 +1,72 @@
-import React from "react";
-import {
-  Typography,
-  Paper,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  Stack,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Typography, Paper, Box, Button, MenuItem, Select } from "@mui/material";
 
-const InsuranceData = () => {
-  // Dummy insurance companies data
+const InsurancePage = () => {
+  // Sample data for insurance companies and their insurances
   const insuranceCompanies = [
     {
-      name: "Acme Insurance",
-      description: "Trusted provider of comprehensive insurance solutions.",
-      pricing: {
-        basic: "$50/month",
-        premium: "$100/month",
-      },
+      name: "Insurance Company 1",
+      insurances: [
+        { type: "Health Insurance", amount: 5000 },
+        { type: "Health Insurance premimum", amount: 10000 },
+      ],
     },
     {
-      name: "SuperSafe Insurance",
-      description: "Secure your future with our top-rated insurance plans.",
-      pricing: {
-        basic: "$75/month",
-        premium: "$125/month",
-      },
-    },
-    {
-      name: "InsureAll",
-      description:
-        "Protect what matters most with our wide range of coverage options.",
-      pricing: {
-        basic: "$60/month",
-        premium: "$120/month",
-      },
+      name: "Insurance Company 2",
+      insurances: [
+        { type: "Life Insurance", amount: 20000 },
+        { type: "Home Insurance", amount: 15000 },
+      ],
     },
   ];
 
-  const handleEnrollNow = (companyName) => {
-    // Handle enrollment logic for the selected company
-    console.log(`Enrolling in ${companyName}`);
+  // State to track the selected insurance option for each company
+  const [selectedInsurances, setSelectedInsurances] = useState({});
+
+  const handleClaimInsurance = (insuranceType, companyName) => {
+    // Logic to handle claiming insurance
+    console.log("Claiming insurance:", insuranceType, "from", companyName);
+    
   };
 
   return (
-    <Paper
-      elevation={3}
-      sx={{ p: 5, mt: 0, justifyContent: "center", alignContent: "center" }}
-    >
+    <Paper elevation={3} sx={{ p: 3, mt: 20 }}>
       <Typography variant="h5" gutterBottom>
-        Insurance Options
+        Insurance Companies
       </Typography>
-      <List>
-        {insuranceCompanies.map((company, index) => (
-          <ListItem
-            key={index}
-            sx={{ display: "flex", justifyContent: "space-between", border:"1px dotted", borderRadius:"5px", m: "20px 0"}}
+      {insuranceCompanies.map((company, index) => (
+        <Box key={index} sx={{ mb: 4 }}>
+          <Typography variant="h6" gutterBottom>
+            {company.name}
+          </Typography>
+          <Select
+            value={selectedInsurances[company.name] || ""}
+            onChange={(e) => setSelectedInsurances({ ...selectedInsurances, [company.name]: e.target.value })}
+            displayEmpty
+            fullWidth
+            sx={{ mb: 2 }}
           >
-            <Box>
-              <Typography variant="h6">{company.name}</Typography>
-              <Typography variant="body1">{company.description}</Typography>
-              <Typography variant="body1">
-                Basic Plan: {company.pricing.basic}
-              </Typography>
-              <Typography variant="body1">
-                Premium Plan: {company.pricing.premium}
-              </Typography>
-            </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleEnrollNow(company.name)}
-            >
-              Enroll Now
-            </Button>
-          </ListItem>
-        ))}
-      </List>
+            <MenuItem value="" disabled>
+              Select Insurance
+            </MenuItem>
+            {company.insurances.map((insurance, idx) => (
+              <MenuItem key={idx} value={insurance.type}>
+                {insurance.type} - ${insurance.amount}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!selectedInsurances[company.name]}
+            onClick={() => handleClaimInsurance(selectedInsurances[company.name], company.name)}
+          >
+            Claim
+          </Button>
+        </Box>
+      ))}
     </Paper>
   );
 };
 
-export default InsuranceData;
+export default InsurancePage;

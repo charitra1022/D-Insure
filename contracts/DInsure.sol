@@ -69,6 +69,7 @@ contract DInsure {
         string hospitalLicense;
     }
 
+
     // Mapping to store customers --------------------------------
     mapping(address => Customer) public customers;
 
@@ -88,6 +89,8 @@ contract DInsure {
     mapping(address => Insurance) public companyToInsurance; //--------------------------------
     mapping(address => Disease) public customerToDisease; //-----------------------------
 
+    address[] public insuranceCompaniesList;
+    address[] public hospitalsList;
     // Events
     event CustomerRegistered(
         //--------------------------------
@@ -160,19 +163,29 @@ contract DInsure {
         emit CustomerRegistered(_customerAddress, _customerName);
     }
 
+    // Function to get the list of all hospitals
+    function getHospitals() public view returns (address[] memory) {
+        return hospitalsList;
+    }
+
+    // Function to get the list of all insurance companies
+    function getInsuranceCompanies() public view returns (address[] memory) {
+        return insuranceCompaniesList;
+    }
+
    // Function to check if a customer exists
     function getCustomer(address _customerAddress) public view returns (Customer memory) {
         return customers[_customerAddress];
     }
-     // Function to get insurance company details by address
-    function getInsuranceCompany(address _companyAddress) public view returns (InsuranceCompany memory) {
-        return insuranceCompanies[_companyAddress];
-    }
+    //  // Function to get insurance company details by address
+    // function getInsuranceCompany(address _companyAddress) public view returns (InsuranceCompany memory) {
+    //     return insuranceCompanies[_companyAddress];
+    // }
 
-    // Function to get hospital details by address
-    function getHospital(address _hospitalAddress) public view returns (Hospital memory) {
-        return hospitals[_hospitalAddress];
-    }
+    // // Function to get hospital details by address
+    // function getHospital(address _hospitalAddress) public view returns (Hospital memory) {
+    //     return hospitals[_hospitalAddress];
+    // }
 
 
     // Function to get customer insurance details by address
@@ -201,6 +214,7 @@ contract DInsure {
             _companyName,
             _companyPhone
         );
+         insuranceCompaniesList.push(_companyAddress);
         emit InsuranceCompanyRegistered(_companyAddress, _companyName);
     }
 
@@ -245,6 +259,7 @@ contract DInsure {
             _hospitalName,
             _hospitalLicense
         );
+        hospitalsList.push(_hospitalAddress);
         emit HospitalRegistered(_hospitalAddress, _hospitalName);
     }
 
