@@ -35,11 +35,6 @@ contract DInsure {
 
         // Customer government details
         string customerAadhar;
-        // Medicare/Medicaid Card
-
-        // customer insurances enrolled in
-        // Insurance[] customerInsurances;
-        // HealthInsuranceDocument customerHealthInsuranceDocument;
     }
 
     // struct for an insurance object --------------------------------
@@ -173,19 +168,19 @@ contract DInsure {
         return insuranceCompaniesList;
     }
 
-   // Function to check if a customer exists
+    // Function to check if a customer exists
     function getCustomer(address _customerAddress) public view returns (Customer memory) {
         return customers[_customerAddress];
     }
-    //  // Function to get insurance company details by address
-    // function getInsuranceCompany(address _companyAddress) public view returns (InsuranceCompany memory) {
-    //     return insuranceCompanies[_companyAddress];
-    // }
+    // Function to get insurance company details by address
+    function getInsuranceCompany(address _companyAddress) public view returns (InsuranceCompany memory) {
+        return insuranceCompanies[_companyAddress];
+    }
 
-    // // Function to get hospital details by address
-    // function getHospital(address _hospitalAddress) public view returns (Hospital memory) {
-    //     return hospitals[_hospitalAddress];
-    // }
+    // Function to get hospital details by address
+    function getHospital(address _hospitalAddress) public view returns (Hospital memory) {
+        return hospitals[_hospitalAddress];
+    }
 
 
     // Function to get customer insurance details by address
@@ -360,54 +355,5 @@ contract DInsure {
             totalBillings += billings[i].payableAmount;
         }
         return totalBillings;
-    }
-
-    // to initialize the project by creating sample data -----------------
-    function initialize() public {
-        registerCustomer(
-            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
-            "customer1",
-            "01-01-2000",
-            "1234567890",
-            "customer home",
-            "B+",
-            "B+",
-            "789456123078"
-        );
-
-        registerHospital(
-            0x03C6FcED478cBbC9a4FAB34eF9f40767739D1Ff7,
-            "Apollo India",
-            "hospitalLicense"
-        );
-
-        registerInsuranceCompany(
-            0x617F2E2fD72FD9D5503197092aC168c91465E7f2,
-            "Policy Bazar",
-            "3216549870"
-        );
-
-        addDiseaseForCustomer(
-            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
-            "Sugar",
-            false,
-            true
-        );
-
-        addInsurance(
-            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
-            "Policy Lifetime",
-            "policy1-id",
-            12000,
-            0x617F2E2fD72FD9D5503197092aC168c91465E7f2
-        );
-
-        addBillingInfo(
-            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
-            0x03C6FcED478cBbC9a4FAB34eF9f40767739D1Ff7,
-            0x617F2E2fD72FD9D5503197092aC168c91465E7f2,
-            "policy1-id",
-            2000000000
-        );
     }
 }
