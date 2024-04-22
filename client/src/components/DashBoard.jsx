@@ -60,7 +60,7 @@ const DashBoard = () => {
       minHeight="100vh"
     >
       <Typography variant="h4" gutterBottom>
-        Login Page
+        D-Insure
       </Typography>
       <Box mb={2}>
         <Button

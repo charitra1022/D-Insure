@@ -9,10 +9,10 @@
   D-Insure is a decentralized insurance platform that leverages blockchain technology to provide a secure, transparent, and efficient insurance process. It aims to address the following problems in the traditional insurance sector:
   
 ## Demo Video Link:
-  <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
+  <a href="https://www.youtube.com/watch?v=3ehvWM7EF_M">https://www.youtube.com/watch?v=3ehvWM7EF_M</a>
   
 ## Presentation Link:
-  <a href="https://bit.ly/hack36_24_ppt"> PPT link here </a>
+  <a href="https://docs.google.com/presentation/d/1Gx6cDmHH5-WjzWcBrUllgRuK_ZiV0WDx/edit?usp=sharing&ouid=111245478960415150747&rtpof=true&sd=true"> PPT link here </a>
   
 
 ## Technology Stack:

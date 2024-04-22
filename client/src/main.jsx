@@ -9,7 +9,12 @@ import EnrollPage from "./pages/EnrollPage.jsx";
 import SignUpPage from "./pages/user/SignUpPage.jsx";
 import SignInPage from "./pages/user/SignInPage.jsx";
 import CustomerInfo from "./pages/user/CustomerInfo.jsx";
+<<<<<<< HEAD
 import CompanyLoginPage from "./pages/insurance/CompanyLogin.jsx";
+=======
+import CompanyLoginPage from "./pages/Insurance/CompanyLogin.jsx";
+import CompanyData from "./pages/Insurance/CompanyData.jsx";
+>>>>>>> e416935e6d2a2022c5825a85b16edee00d6911a8
 
 const router = createBrowserRouter([
   {
@@ -47,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "/company-login",
     element: <CompanyLoginPage />,
+  },
+  {
+    path: "/companydata",
+    element: <CompanyData />,
   },
 ]);
 
