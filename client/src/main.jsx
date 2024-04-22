@@ -9,7 +9,7 @@ import EnrollPage from "./pages/EnrollPage.jsx";
 import SignUpPage from "./pages/user/SignUpPage.jsx";
 import SignInPage from "./pages/user/SignInPage.jsx";
 import CustomerInfo from "./pages/user/CustomerInfo.jsx";
-import CompanyLoginPage from "./pages/Insurance/CompanyLogin.jsx";
+import CompanyLoginPage from "./pages/insurance/CompanyLogin.jsx";
 
 const router = createBrowserRouter([
   {
